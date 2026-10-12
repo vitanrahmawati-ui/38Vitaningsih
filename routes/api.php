@@ -1,15 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User; // Pastikan Model User terpanggil
 
-Route::get('/users', function () {
-    $users = User::all(); // Mengambil data user dari database
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Detail data berhasil diambil',
-        'data' => $users
-    ]);
-});
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+Route::get("/users",[UserController::class,"index"]);
